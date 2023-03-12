@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <title></title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+margin:0; 
+padding:0;
+box-sizing:border-box;
+} 
+
+body{
+background:#FAFAFA;       
+font-family: 'poppins', sans-serif;
+}
+
+.select-box{
+height:80px; 
+width:90%;
+background:#504FD9;
+border-radius:15px;
+position:absolute;
+top:60px;
+left:50%;
+transform:translate(-50%,-50%);
+padding:10px;
+display:flex;
+align-items:center;
+z-index:1;
+}
+
+.select-box .translate-from,.select-box .translate-to{
+height:50px;  
+width:150px;
+display:flex;
+align-items:center;
+padding-left:15px;
+cursor:pointer;
+overflow:hidden;
+}
+
+.select-box .from-options::-webkit-scrollbar,.select-box .to-options::-webkit-scrollbar{
+display:none;        
+}
+
+.select-box .translate-to{
+margin-left:35px;        
+}
+
+.select-box .translate-from input,.select-box .translate-to input{
+all:unset;
+width:100px;
+color:white;
+text-align:center;
+font-weight:300;
+}
+
+.select-box .translate-from i,.select-box .translate-to i{
+color:white; 
+font-size:11px;
+position:relative;
+left:-14px;
+}
+
+.select-box .fa-repeat{
+color:white;       
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+cursor:pointer;
+}
+
+.select-box .from-options,.select-box .to-options{
+position:absolute; 
+top:85px;
+left:20px;
+background:#504FD9;
+height:150px;
+width:100px;
+color:white;
+overflow:hidden;
+overflow-y:scroll;
+list-style:none;
+padding:20px;
+border-radius:15px;
+transform:scale(0);
+opacity:0;
+}
+
+.select-box .from-options.from-show{
+transition:all .2s;
+transform:scale(1);
+transform-origin:top;
+opacity:1;
+}
+
+.select-box .to-options.to-show{
+transition:all .2s;
+transform-origin:top;
+transform:scale(1);
+opacity:1;
+}
+
+.select-box .to-options{
+position:absolute;       
+left:60%;
+}
+
+.select-box .from-options li,.select-box .to-options li{
+margin-top:10px;  
+text-align:center;
+position:relative;
+top:-14px;
+cursor:pointer;
+} 
+
+.from-text-box,.to-text-box{
+height:250px;  
+width:88%;
+background:white;
+border-radius:20px;
+padding:20px;
+margin-top:20px;
+position:relative;
+top:230px;
+left:50%;
+transform:translate(-50%,-50%);
+box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+}
+
+.from-text-box textarea,.to-text-box textarea{
+all:unset;
+height:160px;
+width:100%;
+color:#7B83AB;
+font-size:19px;
+}
+
+.to-text-box textarea::placeholder{
+color:black;      
+}
+
+.from-text-box .from-btns,.to-text-box .to-btns{
+height:60px; 
+display:flex;
+align-items:center;
+border-top:1px solid grey;
+padding:15px;
+}
+
+.from-text-box .from-btns i,.to-text-box .to-btns i{
+color:grey; 
+font-size:22px;
+margin-left:6px;
+position:absolute;
+right:30px;
+cursor:pointer;
+}
+
+.from-text-box .from-btns .copy-btn,.to-text-box .to-btns .copy-btn{
+right:60px;       
+}
+
+.translate-btn{
+all:unset;        
+height:60px;   
+width:88%;
+background:#504FD9;
+color:white;
+border-radius:15px;
+display:flex;
+justify-content:center;
+align-items:center;
+position:fixed;
+bottom:0;
+left:50%;
+transform:translate(-50%,-50%);
+cursor:pointer;
+z-index:1;
+}
+
+.copy-msg{
+padding:10px; 
+width:110px;
+background:black;
+color:white;
+border-radius:3px;
+position:absolute;
+bottom:20px;
+left:50%;
+transform:translate(-50%,-50%);
+text-align:center;
+}
+
+.copy-msg.msg-show{
+bottom:75px;    
+transition:all .2s;
+}
+
+.made-by{
+height:20px; 
+position:absolute;
+bottom:0;
+color:black;
+display:flex;
+justify-content:center;
+align-items:center;
+width:100%;
+font-size:8px;
+}
+</style>         
+</head>
+
+<body>
+ <div class="select-box">
+   <div class="translate-from">
+      <input type="text" name="" value="en-GB" readonly>
+      <i class="fa-solid fa-chevron-down"></i>
+   </div>
+     <div class="from-options">
+             <!--Insert All Options Inside This Box-->
+     </div>
+   <i class="fa-solid fa-repeat"></i>
+ <div class="translate-to">
+         <input type="text" name="" value="ko-KR" readonly>
+         <i class="fa-solid fa-chevron-down"></i>
+ </div>   
+    <div class="to-options">
+            <!--Insert All Options Inside This Box-->
+    </div>
+ </div>
+ 
+<div class="from-text-box">
+ <textarea name="" id="" cols="30" rows="10" placeholder="Enter text"></textarea>
+ <div class="from-btns">
+    <i class="material-icons copy-btn" onclick="copyFromText()">content_copy</i> 
+    <i class="material-icons from-speak" onclick="speakFromText()">volume_up</i>
+ </div>
+</div>
+
+<div class="to-text-box">
+        <textarea name="" id="" cols="30" rows="10"placeholder="Translation" readonly></textarea>
+        <div class="to-btns">
+            <i class="material-icons copy-btn" onclick="copyToText()">content_copy</i>
+            <i class="material-icons to-speak" onclick="speakToText()">volume_up</i>
+        </div>
+</div>
+<button class="translate-btn">Translate</button>
+<div class="copy-msg">Copied!</div>
+<div class="made-by">
+ <span>Made with ♡ by Harsh Gupta</span>       
+</div>
+<script src="countries.js"></script>
+<script>
+let translatedFromBox = document.querySelector('.select-box .from-options');
+let translatedToBox = document.querySelector('.select-box .to-options');
+let translateFrom = document.querySelector('.select-box .translate-from');
+let translateTo = document.querySelector('.select-box .translate-to');
+let fromInput = document.querySelector('.select-box .translate-from input');
+let toInput = document.querySelector('.select-box .translate-to input');
+let switchBtn = document.querySelector('.select-box .fa-repeat');
+let fromTranslateBox = document.querySelector('.from-text-box textarea');
+let toTranslateBox = document.querySelector('.to-text-box textarea');
+let translateBtn = document.querySelector('.translate-btn');
+let copyMsg = document.querySelector('.copy-msg');
+let currentFromValue,currentToValue,currentFromTranslatedText,currentToTranslatedText;
+let getCountries =()=>{
+  let Fromli = '';
+  let Toli = '';
+ for(let countryCode in countries){
+   Fromli += `       <li value="${countryCode}" onclick="setFromValue('${countryCode}')">${countries[countryCode]}</li>`; 
+   Toli += `       <li value="${countryCode}" onclick="setToValue('${countryCode}')">${countries[countryCode]}</li>`;   
+   translatedFromBox.innerHTML = Fromli;
+   translatedToBox.innerHTML = Toli;
+ }       
+}   
+
+translateFrom.addEventListener('click',()=>{
+  translatedFromBox.classList.toggle('from-show');  
+  if(translatedToBox.classList.contains('to-show')){
+   translatedToBox.classList.remove('to-show');
+  }
+})
+
+translateTo.addEventListener('click', () => {
+   translatedToBox.classList.toggle('to-show');
+  if(translatedFromBox.classList.contains('from-show')){
+     translatedFromBox.classList.remove('from-show');  
+  }
+})
+
+let setFromValue =(countryCode)=>{
+  fromInput.value = countryCode;  
+  translatedFromBox.classList.remove('from-show');  
+}
+
+let setToValue =(countryCode)=>{
+ toInput.value = countryCode;
+ translatedToBox.classList.remove('to-show');
+}
+
+switchBtn.addEventListener('click',()=>{
+ let currentFromValue = fromInput.value;
+ let currentToValue = toInput.value;
+ fromInput.value = currentToValue;
+ toInput.value = currentFromValue;
+ currentFromTranslatedText = fromTranslateBox.value;
+ currentToTranslatedText = toTranslateBox.value;
+ fromTranslateBox.value = currentToTranslatedText;
+ toTranslateBox.value = currentFromTranslatedText
+ getTranslation();
+})
+
+let getTranslation =()=>{
+ let text = fromTranslateBox.value; 
+ let url = `https://api.mymemory.translated.net/get?q=${text}&langpair=${fromInput.value}|${toInput.value}`;   
+ fetch(url).then(res => res.json()).then(data=>{
+   toTranslateBox.value = data.responseData.translatedText;
+ })
+}
+
+let copyFromText =()=>{
+ if(fromTranslateBox.value != ''){      
+ navigator.clipboard.writeText(fromTranslateBox.value);
+ copyMsg.classList.add('msg-show');
+ setTimeout(()=>{
+   copyMsg.classList.remove('msg-show');
+ },1000)
+}
+}
+
+let copyToText =()=>{
+if(fromTranslateBox.value != ''){       
+   navigator.clipboard.writeText(toTranslateBox.value);
+  copyMsg.classList.add('msg-show');
+  setTimeout(()=>{
+     copyMsg.classList.remove('msg-show');
+  },1000)
+}
+}
+
+let speakFromText =()=>{
+if(fromTranslateBox.value != ''){
+let speech  = new SpeechSynthesisUtterance();
+let recognition = 
+speech.lang = 'en-US';
+speech.text = fromTranslateBox.value;
+speechSynthesis.speak(speech);
+}
+}
+
+let speakToText =()=>{
+if(fromTranslateBox.value != ''){        
+let speech = new SpeechSynthesisUtterance();
+speech.lang = 'en-US';
+speech.text = toTranslateBox.value;
+speechSynthesis.speak(speech) 
+}
+}
+
+getCountries();
+translateBtn.addEventListener('click',()=>{
+ if(fromTranslateBox.value != ''){
+    getTranslation();    
+ }else{
+    alert('Please Enter text!!')     
+ }    
+})
+</script>
+</body>
+
+</html>
